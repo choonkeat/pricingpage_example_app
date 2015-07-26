@@ -1,0 +1,10 @@
+<div style="padding: 0.5em; margin: 0 0 1.5em 0; background: grey; color: white;">
+  <%= link_to "Home", root_path, style: "color: white;" %>
+  <%= ' | ' + current_user.try(:email) if current_user %>
+</div>
+
+<% if flash[:notice] %>
+<p style="padding: 0.5em; margin: 0 0 1.5em 0; background: lightyellow;">
+<%= flash[:notice] %>
+</p>
+<% end %>
