@@ -14,7 +14,17 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = current_user.posts.build
+    begin
+      paid_customer = Customer.find(current_user.id)
+    rescue ActiveResource::ResourceNotFound
+      flash.now[:notice] = "Oops, please sign up first"
+    end
+
+    if paid_customer.try(:subscribed?)
+      @post = current_user.posts.build
+    else
+      render 'signup'
+    end
   end
 
   # GET /posts/1/edit
